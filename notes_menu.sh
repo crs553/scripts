@@ -16,7 +16,7 @@ selected=$(printf "%s\n" "$full_menu" | wofi --dmenu --prompt "Notes" --insensit
 
 case "$selected" in
   "Open Notes")
-    "$TERM" start -- nvim "$NOTES_DIR"
+    "$TERM" start -- sh -c "cd '$NOTES_DIR' && nvim ."
     ;;
   "Sync Notes")
     cd "$NOTES_DIR" || exit
@@ -27,7 +27,7 @@ case "$selected" in
     notify-send "Notes Synced"
     ;;
   *)
-    [ -n "$selected" ] && "$TERM" start -- nvim "$NOTES_DIR/$selected"
+    [ -n "$selected" ] && "$TERM" start -- sh -c "cd '$NOTES_DIR' && nvim '$selected'"
     ;;
 esac
 
